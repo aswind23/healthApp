@@ -1,0 +1,103 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-plugin-ios-disableshaketoedit",
+        "scope": null,
+        "escapedName": "cordova-plugin-ios-disableshaketoedit",
+        "name": "cordova-plugin-ios-disableshaketoedit",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\xampp\\htdocs\\healthApp"
+    ]
+  ],
+  "_from": "cordova-plugin-ios-disableshaketoedit@latest",
+  "_id": "cordova-plugin-ios-disableshaketoedit@1.0.0",
+  "_inCache": true,
+  "_location": "/cordova-plugin-ios-disableshaketoedit",
+  "_nodeVersion": "0.12.9",
+  "_npmOperationalInternal": {
+    "host": "packages-5-east.internal.npmjs.com",
+    "tmp": "tmp/cordova-plugin-ios-disableshaketoedit-1.0.0.tgz_1454494339088_0.47758064372465014"
+  },
+  "_npmUser": {
+    "name": "nleclerc",
+    "email": "nl@spirotron.fr"
+  },
+  "_npmVersion": "2.14.9",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-plugin-ios-disableshaketoedit",
+    "scope": null,
+    "escapedName": "cordova-plugin-ios-disableshaketoedit",
+    "name": "cordova-plugin-ios-disableshaketoedit",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-ios-disableshaketoedit/-/cordova-plugin-ios-disableshaketoedit-1.0.0.tgz",
+  "_shasum": "9519fc6cfb4fc26bedd24c6e3e7b2e0ba9e7e290",
+  "_shrinkwrap": null,
+  "_spec": "cordova-plugin-ios-disableshaketoedit",
+  "_where": "D:\\xampp\\htdocs\\healthApp",
+  "author": {
+    "name": "Nicolas Leclerc"
+  },
+  "bugs": {
+    "url": "https://github.com/nleclerc/cordova-plugin-ios-disableshaketoedit/issues"
+  },
+  "cordova": {
+    "id": "cordova-plugin-ios-disableshaketoedit",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "cordova_name": "cordova-plugin-ios-disableshaketoedit",
+  "dependencies": {},
+  "description": "Sets status bar as hidden in ios cordova project.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "9519fc6cfb4fc26bedd24c6e3e7b2e0ba9e7e290",
+    "tarball": "https://registry.npmjs.org/cordova-plugin-ios-disableshaketoedit/-/cordova-plugin-ios-disableshaketoedit-1.0.0.tgz"
+  },
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.0.0"
+    }
+  ],
+  "gitHead": "dc18a48cc58218caca56f4dd217d2f2f1b062a29",
+  "homepage": "https://github.com/nleclerc/cordova-plugin-ios-disableshaketoedit#readme",
+  "issue": "https://github.com/nleclerc/cordova-plugin-ios-disableshaketoedit/issues",
+  "keywords": [
+    "cordova",
+    "ios",
+    "input",
+    "gesture",
+    "shaketoedit"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "nleclerc",
+      "email": "nl@spirotron.fr"
+    }
+  ],
+  "name": "cordova-plugin-ios-disableshaketoedit",
+  "optionalDependencies": {},
+  "readme": "# cordova-plugin-ios-disableshaketoedit\n\n## Description\nThis plugin disables the infamous \"Shake to undo\" feature by setting the application's `applicationSupportsShakeToEdit` property to `NO`.\n\n## Version History\n\n### 1.0.0\n* Changed license to MIT.\n* Changed plugin id to conform to new standard.\n* Added package.json to allow npm publishing.\n\n### 0.2.0\n* Fixed plugin not working anymore with cordova 3.2+.\n\n### 0.1.0\n* Initial release.\n\n## License\n[The MIT License (MIT)](http://opensource.org/licenses/mit-license.html)\nCopyright (c) 2013 Nicolas Leclerc\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nleclerc/cordova-plugin-ios-disableshaketoedit.git"
+  },
+  "scripts": {},
+  "version": "1.0.0"
+}

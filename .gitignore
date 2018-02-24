@@ -1,0 +1,6 @@
+.tmp
+.tmp/**
+*.iml
+node_modules
+hooks
+res

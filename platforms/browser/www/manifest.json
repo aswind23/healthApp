@@ -1,0 +1,12 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "My Ryzodeg",
+  "short_name": "My Ryzodeg",
+  "version": "com.novonordisk.IndiaMyryzodeg",
+  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "author": "Novo Nordisk",
+  "icons": [],
+  "orientation": "portrait",
+  "start_url": "index.html"
+}

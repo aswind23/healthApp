@@ -1,0 +1,49 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-compat": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-globalization": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-ios-disableshaketoedit": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    }
+  }
+}

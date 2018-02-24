@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.novonordisk.IndiaMyryzodeg" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>My Ryzodeg</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Novo Nordisk
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <platform name="android">
+        <splash density="land-hdpi" src="res/drawable-land-hdpi/screen.png" />
+        <splash density="land-ldpi" src="res/drawable-land-ldpi/screen.png" />
+        <splash density="land-mdpi" src="res/drawable-land-mdpi/screen.png" />
+        <splash density="land-xhdpi" src="res/drawable-land-xhdpi/screen.png" />
+        <splash density="port-hdpi" src="res/drawable-port-hdpi/screen.png" />
+        <splash density="port-ldpi" src="res/drawable-port-ldpi/screen.png" />
+        <splash density="port-mdpi" src="res/drawable-port-mdpi/screen.png" />
+        <splash density="port-xhdpi" src="res/drawable-port-xhdpi/screen.png" />
+        <icon density="ldpi" src="res/drawable-ldpi/icon.PNG" />
+        <icon density="mdpi" src="res/drawable-mdpi/icon.PNG" />
+        <icon density="hdpi" src="res/drawable-hdpi/icon.PNG" />
+        <icon density="xhdpi" src="res/drawable-xhdpi/icon.PNG" />
+        <icon density="xxhdpi" src="res/drawable-xxhdpi/icon.PNG" />
+        <icon density="xxxhdpi" src="res/drawable-xxxhdpi/icon.PNG" />
+    </platform>
+    <platform name="browser">
+        <preference name="SplashScreen" value="/images/main-logo.png" />
+        <preference name="SplashScreenDelay" value="0" />
+        <preference name="SplashScreenBackgroundColor" value="#0d4084" />
+        <preference name="ShowSplashScreen" value="false" />
+        <preference name="SplashScreenWidth" value="300" />
+        <preference name="SplashScreenHeight" value="auto" />
+    </platform>
+    <platform name="android">
+        <preference name="SplashScreen" value="/images/main-logo.png" />
+        <preference name="SplashScreenDelay" value="0" />
+        <preference name="SplashScreenBackgroundColor" value="#0d4084" />
+        <preference name="ShowSplashScreen" value="false" />
+        <preference name="SplashScreenWidth" value="300" />
+        <preference name="SplashScreenHeight" value="auto" />
+    </platform>
+    <platform name="ios">
+        <preference name="SplashScreen" value="/images/main-logo.png" />
+        <preference name="SplashScreenDelay" value="0" />
+        <preference name="SplashScreenBackgroundColor" value="#0d4084" />
+        <preference name="ShowSplashScreen" value="false" />
+        <preference name="SplashScreenWidth" value="300" />
+        <preference name="SplashScreenHeight" value="auto" />
+    </platform>
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="16" />
+    <preference name="orientation" value="portrait" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="cordova-plugin-device" spec="^2.0.1" />
+    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
+    <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
+    <plugin name="cordova-plugin-background-mode" spec="^0.7.2" />
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
+    <plugin name="cordova-plugin-local-notification" spec="^0.9.0-beta.2" />
+    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
+    <plugin name="cordova-plugin-globalization" spec="^1.0.9" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^2.0.2" />
+    <plugin name="cordova-plugin-ios-disableshaketoedit" spec="^1.0.0" />
+    <engine name="browser" spec="~5.0.3" />
+    <engine name="android" spec="~7.0.0" />
+    <engine name="ios" spec="~4.5.4" />
+</widget>
