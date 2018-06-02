@@ -214,6 +214,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#113060', end
 .field input[type='number']:-moz-placeholder { /* Firefox 18- */
   color:black;text-align: center;
 }
+.field input[type='text']::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color:black;text-align: center;
+}
+.field input[type='text']::-moz-placeholder { /* Firefox 19+ */
+  color:black;text-align: center;
+}
+.field input[type='text']:-ms-input-placeholder { /* IE 10+ */
+  color:black;text-align: center;
+}
+.field input[type='text']:-moz-placeholder { /* Firefox 18- */
+  color:black;text-align: center;
+}
 .field input[type='number']::-webkit-inner-spin-button{
     display: none !important;
 }
@@ -469,7 +481,7 @@ my-menu ul.sidemenu img{
     height: 50%;
     padding: 0 20px 20px 0;
 }
-.homeMenu ul li:last-child{
+.homeMenu ul li:nth-child(9){
     float:none;
     width: 100%;
 }

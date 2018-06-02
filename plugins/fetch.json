@@ -39,14 +39,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-geolocation": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-geolocation@4.0.1"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-badge": {
     "source": {
       "type": "registry",
@@ -59,14 +51,6 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-local-notification"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
-  "cordova-plugin-splashscreen": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-splashscreen@5.0.2"
     },
     "is_top_level": true,
     "variables": {}
@@ -91,6 +75,38 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-ios-disableshaketoedit@^1.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-geolocation": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-geolocation@^4.0.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-statusbar": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-statusbar@2.4.1"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-device-motion": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-device-motion"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-pedometer": {
+    "source": {
+      "type": "registry",
+      "id": "https://github.com/leecrossley/cordova-plugin-pedometer.git"
     },
     "is_top_level": true,
     "variables": {}

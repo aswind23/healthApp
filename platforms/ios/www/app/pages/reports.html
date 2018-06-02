@@ -3,7 +3,7 @@
 	<div class="monthLists">
 		<div class="listWrap">
 			<ul>
-				<li ng-repeat="month in monthNames" ng-class="{active : activeMonth === month}">
+				<li ng-repeat="month in monthNames" ng-class="{active : activeMonth === month}" ng-if="activeMonth === month">
 					<a href="" value="{{month}}" ng-click="viewDates($index,month);">{{month}}</a>
 				</li>
 			</ul>
@@ -87,6 +87,9 @@
 	}
 	.pagePedometer{
 		padding-top: 160px;
+	}
+	.monthLists ul{
+		text-align: center;
 	}
 </style>
 <footer ng-controller="pageController" ng-include="template.footer"></footer>

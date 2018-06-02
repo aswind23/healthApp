@@ -60,46 +60,6 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/cordova-plugin-local-notification/www/local-notification.js",
-        "id": "cordova-plugin-local-notification.LocalNotification",
-        "pluginId": "cordova-plugin-local-notification",
-        "clobbers": [
-            "cordova.plugins.notification.local"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-local-notification/www/local-notification-core.js",
-        "id": "cordova-plugin-local-notification.LocalNotification.Core",
-        "pluginId": "cordova-plugin-local-notification",
-        "clobbers": [
-            "cordova.plugins.notification.local.core",
-            "plugin.notification.local.core"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-local-notification/www/local-notification-util.js",
-        "id": "cordova-plugin-local-notification.LocalNotification.Util",
-        "pluginId": "cordova-plugin-local-notification",
-        "merges": [
-            "cordova.plugins.notification.local.core",
-            "plugin.notification.local.core"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-        "id": "cordova-plugin-splashscreen.SplashScreen",
-        "pluginId": "cordova-plugin-splashscreen",
-        "clobbers": [
-            "navigator.splashscreen"
-        ]
-    },
-    {
-        "file": "plugins/cordova-plugin-splashscreen/src/browser/SplashScreenProxy.js",
-        "id": "cordova-plugin-splashscreen.SplashScreenProxy",
-        "pluginId": "cordova-plugin-splashscreen",
-        "runs": true
-    },
-    {
         "file": "plugins/cordova-plugin-globalization/www/GlobalizationError.js",
         "id": "cordova-plugin-globalization.GlobalizationError",
         "pluginId": "cordova-plugin-globalization",
@@ -141,6 +101,76 @@ module.exports = [
         "id": "cordova-plugin-inappbrowser.InAppBrowserProxy",
         "pluginId": "cordova-plugin-inappbrowser",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-local-notification/www/local-notification.js",
+        "id": "cordova-plugin-local-notification.LocalNotification",
+        "pluginId": "cordova-plugin-local-notification",
+        "clobbers": [
+            "cordova.plugins.notification.local"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-local-notification/www/local-notification-core.js",
+        "id": "cordova-plugin-local-notification.LocalNotification.Core",
+        "pluginId": "cordova-plugin-local-notification",
+        "clobbers": [
+            "cordova.plugins.notification.local.core",
+            "plugin.notification.local.core"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-local-notification/www/local-notification-util.js",
+        "id": "cordova-plugin-local-notification.LocalNotification.Util",
+        "pluginId": "cordova-plugin-local-notification",
+        "merges": [
+            "cordova.plugins.notification.local.core",
+            "plugin.notification.local.core"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+        "id": "cordova-plugin-statusbar.statusbar",
+        "pluginId": "cordova-plugin-statusbar",
+        "clobbers": [
+            "window.StatusBar"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-statusbar/src/browser/StatusBarProxy.js",
+        "id": "cordova-plugin-statusbar.StatusBarProxy",
+        "pluginId": "cordova-plugin-statusbar",
+        "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-device-motion/www/Acceleration.js",
+        "id": "cordova-plugin-device-motion.Acceleration",
+        "pluginId": "cordova-plugin-device-motion",
+        "clobbers": [
+            "Acceleration"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device-motion/www/accelerometer.js",
+        "id": "cordova-plugin-device-motion.accelerometer",
+        "pluginId": "cordova-plugin-device-motion",
+        "clobbers": [
+            "navigator.accelerometer"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device-motion/src/browser/AccelerometerProxy.js",
+        "id": "cordova-plugin-device-motion.AccelerometerProxy",
+        "pluginId": "cordova-plugin-device-motion",
+        "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-pedometer/www/pedometer.js",
+        "id": "cordova-plugin-pedometer.Pedometer",
+        "pluginId": "cordova-plugin-pedometer",
+        "clobbers": [
+            "pedometer"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -149,15 +179,17 @@ module.exports.metadata =
     "cordova-plugin-android-permissions": "1.0.0",
     "cordova-plugin-device": "2.0.1",
     "cordova-plugin-background-mode": "0.7.2",
+    "cordova-plugin-badge": "0.8.7",
     "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-geolocation": "4.0.1",
-    "cordova-plugin-badge": "0.8.7",
-    "cordova-plugin-local-notification": "0.9.0-beta.2",
-    "cordova-plugin-whitelist": "1.3.3",
-    "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-globalization": "1.0.9",
     "cordova-plugin-inappbrowser": "2.0.2",
-    "cordova-plugin-ios-disableshaketoedit": "1.0.0"
+    "cordova-plugin-ios-disableshaketoedit": "1.0.0",
+    "cordova-plugin-local-notification": "0.9.0-beta.2",
+    "cordova-plugin-statusbar": "2.4.1",
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-device-motion": "2.0.1",
+    "cordova-plugin-pedometer": "0.4.1"
 }
 // BOTTOM OF METADATA
 });

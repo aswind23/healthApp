@@ -50,9 +50,9 @@ userModule.controller('LoginController', ['$route', '$rootScope', '$scope', '$lo
     $scope.userData = [];
     $scope.loginText = 'Submit';
     $scope.$storage = $localStorage;
-    if (angular.isDefined($scope.$storage.user)) {
-        $scope.getMobile = $scope.$storage.user[0].mobileNo.substr(-2, 2);
-    }
+    // if (angular.isDefined($scope.$storage.user)) {
+    //     $scope.getMobile = $scope.$storage.user[0].mobileNo.substr(-2, 2);
+    // }
     var contentPromise = ContentService.getData($scope.$storage.lang);
     contentPromise.then(function(response) {
         $rootScope.my_data = response.data;
@@ -84,40 +84,54 @@ userModule.controller('LoginController', ['$route', '$rootScope', '$scope', '$lo
     //  }
     // };   
     $scope.userLogin = function(getName) {
-        console.log($rootScope.my_data.login.loading);
+        // console.log($rootScope.my_data.login.loading);
+        // if (getName === 'login') {
+        //     if (angular.isDefined($scope.mobileNumber)) {
+        //         $scope.userData = [];
+        //         $scope.loginText = $rootScope.my_data.login.loading;
+        //         UserService.getOtp($scope.mobileNumber, function(response) {
+
+        //             if (response.status) {
+        //                 $scope.loginText = $rootScope.my_data.login.submitted;
+        //                 $scope.userData.push(response.data);
+        //                 $scope.$storage.user = $scope.userData;
+        //                 $scope.$storage.isLoggedIn = true;
+        //                 $location.path('/menu');
+        //             } else {
+        //                 $scope.loginText = $rootScope.my_data.login.failed;
+        //             }
+        //         });
+        //     } else {
+        //         alert($rootScope.my_data.login.alert);
+        //     }
+        // } else {
+        //     $scope.loginText = $rootScope.my_data.login.loading;
+        //     $scope.userData = [];
+        //     UserService.getOtp($scope.$storage.user[0].mobileNo, function(response) {
+        //         if (response.status) {
+        //             $scope.loginText = $rootScope.my_data.login.submitted;
+        //             $scope.$storage.user = [];
+        //             $scope.userData.push(response.data);
+        //             $scope.$storage.user = $scope.userData;
+        //             console.log($scope.$storage);
+        //         } else {
+        //             $scope.loginText = $rootScope.my_data.login.failed;
+        //         }
+        //     });
+        // }
         if (getName === 'login') {
             if (angular.isDefined($scope.mobileNumber)) {
-                $scope.userData = [];
-                $scope.loginText = $rootScope.my_data.login.loading;
-                UserService.getOtp($scope.mobileNumber, function(response) {
-
-                    if (response.status) {
-                        $scope.loginText = $rootScope.my_data.login.submitted;
-                        $scope.userData.push(response.data);
-                        $scope.$storage.user = $scope.userData;
-                        $scope.$storage.isLoggedIn = true;
-                        $location.path('/otp');
-                    } else {
-                        $scope.loginText = $rootScope.my_data.login.failed;
+                if($scope.mobileNumber === $scope.$storage.password){
+                    $scope.$storage.isLoggedIn = true;
+                    $location.path('/menu');
+                }
+                else {
+                        $scope.loginError = $rootScope.my_data.login.alert;
                     }
-                });
-            } else {
+            }
+            else {
                 alert($rootScope.my_data.login.alert);
             }
-        } else {
-            $scope.loginText = $rootScope.my_data.login.loading;
-            $scope.userData = [];
-            UserService.getOtp($scope.$storage.user[0].mobileNo, function(response) {
-                if (response.status) {
-                    $scope.loginText = $rootScope.my_data.login.submitted;
-                    $scope.$storage.user = [];
-                    $scope.userData.push(response.data);
-                    $scope.$storage.user = $scope.userData;
-                    console.log($scope.$storage);
-                } else {
-                    $scope.loginText = $rootScope.my_data.login.failed;
-                }
-            });
         }
     };
 
@@ -125,6 +139,7 @@ userModule.controller('LoginController', ['$route', '$rootScope', '$scope', '$lo
         $scope.submitTextLang = "Processing...";
         $timeout(function() {
             $scope.$storage.lang = lang;
+            $scope.$storage.password = 'myRyzodeg';
             $location.path('/');
         }, 1000);
     };
@@ -179,7 +194,7 @@ pageModule.config(['$routeProvider', '$locationProvider', function($routeProvide
         controller: 'pageController'
     }).
     when('/novomix_you', {
-        title: 'Novomix & You',
+        title: 'Ryzodeg & you ',
         templateUrl: 'app/pages/novomix_you.html',
         controller: 'pageController'
     }).
@@ -259,43 +274,45 @@ pageModule.config(['$routeProvider', '$locationProvider', function($routeProvide
 pageModule.factory('PageService', ['$window', '$http', '$q', '$location', '$localStorage', '$rootScope', '$timeout', function($window, $http, $q, $location, $localStorage, $rootScope, $timeout) {
     var pageService = {};
     var baseApp = 'http://13.126.229.12:8080/novomix/';
-    pageService.saveDailyRecord = function(dailyData, callback) {
-        var deferred = $q.defer();
-        $http({
-            method: 'POST',
-            data: dailyData,
-            url: baseApp + 'api/v1/rest/addDailyRecord?',
-            headers: {
-                'Authorization': $localStorage.user[0].token,
-                'Content-Type': 'application/json; charset=UTF-8'
-            }
-        }).success(function(data) {
-            callback(data);
-            deferred.resolve(data);
-        }).error(function(data) {
-            callback(data);
-            deferred.reject(data);
-        });
-    };
-    pageService.retrieveRecord = function(selectDate, callback) {
-        var deferred = $q.defer();
-        $http({
-            method: 'POST',
-            params: {
-                date: selectDate
-            },
-            url: baseApp + 'api/v1/rest/getRecord',
-            headers: {
-                'Authorization': $localStorage.user[0].token
-            }
-        }).success(function(data) {
-            callback(data);
-            deferred.resolve(data);
-        }).error(function(data) {
-            callback(data);
-            deferred.reject(data);
-        });
-    };
+    
+    // pageService.saveDailyRecord = function(dailyData) {
+    //     var deferred = $q.defer();
+    //     $http({
+    //         method: 'POST',
+    //         data: dailyData,
+    //         url: baseApp + 'api/v1/rest/addDailyRecord?',
+    //         headers: {
+    //             'Authorization': $localStorage.user[0].token,
+    //             'Content-Type': 'application/json; charset=UTF-8'
+    //         }
+    //     }).success(function(data) {
+    //         callback(data);
+    //         deferred.resolve(data);
+    //     }).error(function(data) {
+    //         callback(data);
+    //         deferred.reject(data);
+    //     });
+     
+    // };
+    // pageService.retrieveRecord = function(selectDate, callback) {
+    //     var deferred = $q.defer();
+    //     $http({
+    //         method: 'POST',
+    //         params: {
+    //             date: selectDate
+    //         },
+    //         url: baseApp + 'api/v1/rest/getRecord',
+    //         headers: {
+    //             'Authorization': $localStorage.user[0].token
+    //         }
+    //     }).success(function(data) {
+    //         callback(data);
+    //         deferred.resolve(data);
+    //     }).error(function(data) {
+    //         callback(data);
+    //         deferred.reject(data);
+    //     });
+    // };
     pageService.retrievePedoRecord = function(selectDate, callback) {
         var deferred = $q.defer();
         $http({
@@ -338,9 +355,6 @@ pageModule.directive('mapView', function($window, $log) {
     return {
         restrict: 'AC',
         templateUrl: 'app/pages/map.html',
-        link: function(scope, element) {
-
-        },
         controller: function($scope, $rootScope, $location,$interval,PageService) {
             var time = 0;
             $scope.Distance = { num: 0 };
@@ -361,271 +375,369 @@ pageModule.directive('mapView', function($window, $log) {
             $scope.waypoints = [];
             $scope.getpoint = 0;
 
-            function getPedoDuration() {
-                var startTime = ($scope.getStartTime.getHours() * 60) + $scope.getStartTime.getMinutes();
-                var updateTime = (new Date().getHours() * 60) + new Date().getMinutes();
-                return updateTime - startTime;
+            function getPostion(){
+                pedometer.startPedometerUpdates(function(success){
+                    $scope.steps = success;
+                    console.log(success);
+                }, function(failureCallback){
+                    console.log(failureCallback);
+                });
+                
+                pedometer.isDistanceAvailable(function(success){
+                    $scope.distance = success;
+                    console.log(success);
+                }, function(failureCallback){
+                    console.log(failureCallback);
+                });
             }
 
-            function distance(lat1, lon1, lat2, lon2, unit) {
-                var radlat1 = Math.PI * lat1 / 180
-                var radlat2 = Math.PI * lat2 / 180
-                var radlon1 = Math.PI * lon1 / 180
-                var radlon2 = Math.PI * lon2 / 180
-                var theta = lon1 - lon2
-                var radtheta = Math.PI * theta / 180
-                var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-                dist = Math.acos(dist)
-                dist = dist * 180 / Math.PI;
-                dist = dist * 60 * 1.1515;
-                if (unit == "K") { dist = dist * 1.609344; } else if (unit == "N") { dist = dist * 0.8684; } else if (unit == "M") { dist = dist; }
-                $scope.totalDistance.push(dist);
-                return $scope.totalDistance.reduce(getSum);
-            }
+            pedometer.isStepCountingAvailable( function (pedometerData) {
+                console.log(pedometerData);
+            
+                    $scope.startPedometer = function() {
+                        $scope.hideStart = true;
+                        $scope.showPause = true;
+                        $scope.startPedo = true;
+                        $scope.isPaused = false;
+                        $scope.getStartTime = new Date();
+                        $interval.cancel($scope.interval);
+                        getPostion();
+                    }
+                    $scope.startAgainPedo = function() {
+                        $interval.cancel($scope.interval);
+                        $scope.isPaused = false;
+                        $scope.getPosition=[];
+                        $scope.exception=[];
+                        getPostion();
+                        $scope.notWalking = false;
 
-            function getSum(total, num) {
-                return total + num;
-            }
+                    }
+                    $scope.closePopPedo = function() {
+                        $scope.steps = 0;
+                        $scope.calories = 0;
+                        $scope.duration = 0;
+                        $scope.distance = 0;
+                        $scope.getPosition = [];
+                        $interval.cancel($scope.interval);
+                        $scope.hideStart = false;
+                        $scope.notWalking = false;
+                        $scope.showData = false;
+                        $scope.showResume = false;
+                        $scope.showPause = false;
+                    }
+                    $scope.pausePedometer = function() {
+                        $scope.showPause = false;
+                        $scope.showResume = true;
+                        $scope.startPedo = false;
+                        $scope.isPaused = true;
 
-            function calsPerDay() {
-                //var weight = $scope.$storage.userWeight;
-                result = $scope.steps * 0.063;
-                return result;
-            }
-            // function find_duplicate_in_array(arra1) {
-            //   var i,
-            //   len=arra1.length,
-            //   result = [],
-            //   obj = {}; 
-            //   for (i=0; i<len; i++){
-            //     obj[arra1[i]]=0;
-            //   }
-            //   for (i in obj) {
-            //   result.push(i);
-            //   }
-            //   return result;
-            // }
-            function compareObj(current, last) {
-                var getBoolean = false;
-                if (current.lat === last.lat || current.lng === last.lng) {
-                    getBoolean = false;
-                } else {
-                    getBoolean = true;
-                }
-                return getBoolean;
-            }
-            currentLocation();
+                    }
+                    $scope.resumePedometer = function() {
+                        $scope.showPause = true;
+                        $scope.showResume = false;
+                        $scope.startPedo = true;
+                        $scope.isPaused = false;
+                        $interval.cancel($scope.interval);
+                        getPostion();
+                    }
+                    $scope.finishPedometer = function() {
+                        $scope.hideResult = true;
+                        $scope.hideStart = true;
+                        $scope.startPedo = false;
+                        $scope.showResume = false;
+                        $scope.showData = true;
+                        $interval.cancel($scope.interval);
+                        $scope.isPaused = false;
+                        $scope.notWalking = false;
+                        $scope.showData = true;
+                        $scope.dateObj = new Date();
+                        var month = $scope.monthNames[$scope.dateObj.getMonth()]; //months from 1-12
+                        var getMonth = $scope.dateObj.getMonth() + 1;
+                        var printMonth = ('0' + getMonth).slice(-2);
+                        var day = ('0' + $scope.dateObj.getDate()).slice(-2);
+                        var year = $scope.dateObj.getFullYear();
+                        $scope.createdSendDate = day + "/" + printMonth + "/" + year;
+                        $scope.createdDate = day + "th" + " " + month + " " + year;
+                        $scope.startedTime = $scope.getStartTime.getHours() + ":" + $scope.getStartTime.getMinutes();
+                        $scope.endedTime = $scope.dateObj.getHours() + ":" + $scope.dateObj.getMinutes();
+                    }
+            }, function (error) {
+                console.log(error);
+            });
+           // function getPedoDuration(initial,update) {
+           //      var startTime = (new Date(initial).getHours() * 60) + new Date(initial).getMinutes();
+           //      var updateTime = (new Date(update).getHours() * 60) + new Date(update).getMinutes();
+           //      return updateTime - startTime;
+           //  }
 
-            function watchPostion() {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function(position) {
-                        console.log(position);
-                        var currentOrigin = {
-                            lat: parseFloat(position.coords.latitude),
-                            lng: parseFloat(position.coords.longitude)
-                        };
-                        if ($scope.getPosition.length == 0) {
-                            $scope.getPosition.push(currentOrigin);
+           //  function distance(lat1, lon1, lat2, lon2, unit) {
+           //      var radlat1 = Math.PI * lat1 / 180
+           //      var radlat2 = Math.PI * lat2 / 180
+           //      var radlon1 = Math.PI * lon1 / 180
+           //      var radlon2 = Math.PI * lon2 / 180
+           //      var theta = lon1 - lon2
+           //      var radtheta = Math.PI * theta / 180
+           //      var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+           //      dist = Math.acos(dist)
+           //      dist = dist * 180 / Math.PI;
+           //      dist = dist * 60 * 1.1515;
+           //      if (unit == "K") { dist = dist * 1.609344; } else if (unit == "N") { dist = dist * 0.8684; } else if (unit == "M") { dist = dist; }
+           //      $scope.totalDistance.push(dist);
+           //      return $scope.totalDistance.reduce(getSum);
+           //  }
 
-                        } else {
-                            var lastArray = $scope.getPosition[$scope.getPosition.length - 1];
-                            var srcLocation = new google.maps.LatLng(currentOrigin.lat, currentOrigin.lng);
-                            var dstLocation = new google.maps.LatLng(lastArray.lat, lastArray.lng);
-                            //var checkData = distance(currentOrigin.lat, currentOrigin.lng, lastArray.lat, lastArray.lng, 'K');
-                            var getDistance = google.maps.geometry.spherical.computeDistanceBetween(srcLocation, dstLocation);
-                            var cm_distance = ((getDistance/1000) * 100000)/10;
-                            console.log(cm_distance);
-                            if (cm_distance > 68) {
-                                $scope.getPosition.push(currentOrigin);
-                                $scope.$apply(function() {
-                                    angular.forEach($scope.getPosition, function(data) {
-                                        $scope.waypoints.push([data.lat, data.lng]);
-                                    });
-                                    var origin = $scope.getPosition[$scope.getPosition.length - 2];
-                                    var destination = $scope.getPosition[$scope.getPosition.length - 1];
-                                    $scope.steps = $scope.getPosition.length - 1;
-                                    $scope.duration = getPedoDuration();
-                                    $scope.distance = getDistance/1000;
-                                    $scope.calories = calsPerDay();
-                                });
-                            } else {
-                                //var log = 'Not WALKING';
-                                console.log("Not WALKING");
-                                // $scope.exception.push(log);
-                                // if($scope.exception.length > 5){
-                                //     $scope.$apply(function () {
-                                //         $scope.pausePedometer();
-                                //         $scope.notWalking = true;
-                                //     }); 
-                                // }
+           //  function getSum(total, num) {
+           //      return total + num;
+           //  }
+
+           //    function calsPerDay(steps) {
+           //      //var weight = $scope.$storage.userWeight;
+           //      result = parseInt(steps) * 0.063;
+           //      return result;
+           //  }
+           //  // function find_duplicate_in_array(arra1) {
+           //  //   var i,
+           //  //   len=arra1.length,
+           //  //   result = [],
+           //  //   obj = {}; 
+           //  //   for (i=0; i<len; i++){
+           //  //     obj[arra1[i]]=0;
+           //  //   }
+           //  //   for (i in obj) {
+           //  //   result.push(i);
+           //  //   }
+           //  //   return result;
+           //  // }
+           //  function compareObj(current, last) {
+           //      var getBoolean = false;
+           //      if (current.lat === last.lat || current.lng === last.lng) {
+           //          getBoolean = false;
+           //      } else {
+           //          getBoolean = true;
+           //      }
+           //      return getBoolean;
+           //  }
+           //  // currentLocation();
+
+           //  function watchPostion() {
+           //      if (navigator.geolocation) {
+           //          navigator.geolocation.getCurrentPosition(function(position) {
+           //              console.log(position);
+           //              var currentOrigin = {
+           //                  lat: parseFloat(position.coords.latitude),
+           //                  lng: parseFloat(position.coords.longitude),
+           //                  timestamp:position.timestamp
+           //              };
+           //              //if ($scope.getPosition.length == 0) {
+           //              $scope.getPosition.push(currentOrigin);
+
+           //              //} else {
+           //                  // var lastArray = $scope.getPosition[$scope.getPosition.length - 1];
+           //                  // var srcLocation = new google.maps.LatLng(currentOrigin.lat, currentOrigin.lng);
+           //                  // var dstLocation = new google.maps.LatLng(lastArray.lat, lastArray.lng);
+           //                  //var checkData = distance(currentOrigin.lat, currentOrigin.lng, lastArray.lat, lastArray.lng, 'K');
+           //                  // var getDistance = google.maps.geometry.spherical.computeDistanceBetween(srcLocation, dstLocation);
+           //                  // var cm_distance = ((getDistance/1000) * 100000)/10;
+           //                  var getDistance = distance($scope.getPosition[0].lat,$scope.getPosition[0].lng,$scope.getPosition[$scope.getPosition.length - 1].lat, $scope.getPosition[$scope.getPosition.length - 1].lng,"K");
+           //                  var cm_distance = getDistance * 100000;
+           //                  //1 cm equal to 0.01320 steps;
+           //                  var stepsTotal = cm_distance * 0.01320;
+           //                  $scope.totalSteps = stepsTotal-10;
+           //                  if($scope.totalSteps > 0){
+           //                       $scope.$apply(function() {
+           //                          $scope.steps = stepsTotal-10;
+           //                          $scope.duration = getPedoDuration($scope.getPosition[0].timestamp,$scope.getPosition[$scope.getPosition.length - 1].timestamp);
+           //                          $scope.distance = getDistance;
+           //                          $scope.calories = calsPerDay($scope.steps);
+           //                          currentLocation();
+           //                       });
+           //                  }
+           //                  // if (cm_distance > 68) {
+           //                  //     $scope.getPosition.push(currentOrigin);
+           //                  //     $scope.$apply(function() {
+           //                  //         angular.forEach($scope.getPosition, function(data) {
+           //                  //             $scope.waypoints.push([data.lat, data.lng]);
+           //                  //         });
+           //                  //         var origin = new google.maps.LatLng($scope.getPosition[0].lat, $scope.getPosition[0].lng);
+           //                  //         var destination = new google.maps.LatLng($scope.getPosition[$scope.getPosition.length - 1].lat, $scope.getPosition[$scope.getPosition.length - 1].lng);
+           //                  //         var getAccDistance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
+           //                  //         $scope.steps = $scope.getPosition.length - 1;
+           //                  //         $scope.duration = getPedoDuration();
+           //                  //         $scope.distance = getAccDistance/1000;
+           //                  //         $scope.calories = calsPerDay();
+           //                  //     });
+           //                  // } else {
+           //                  //     //var log = 'Not WALKING';
+           //                  //     console.log("Not WALKING");
+           //                  //     // $scope.exception.push(log);
+           //                  //     // if($scope.exception.length > 5){
+           //                  //     //     $scope.$apply(function () {
+           //                  //     //         $scope.pausePedometer();
+           //                  //     //         $scope.notWalking = true;
+           //                  //     //     }); 
+           //                  //     // }
                                 
-                            }
-                        }
-                    }, function(err) {
-                        if (err.code == 1) {
-                            alert("User denied geolocation.");
-                        } else if (err.code == 2) {
-                            alert("Position unavailable.");
-                        } else if (err.code == 3) {
-                            alert("Timeout expired.");
-                        } else {
-                            alert("ERROR:" + err.message);
-                        }
-                    });
-                }
-            }
+           //                  // }
+           //          }, function(err) {
+           //              if (err.code == 1) {
+           //                  alert("User denied geolocation.");
+           //              } else if (err.code == 2) {
+           //                  alert("Position unavailable.");
+           //              } else if (err.code == 3) {
+           //                  alert("Timeout expired.");
+           //              } else {
+           //                  alert("ERROR:" + err.message);
+           //              }
+           //          });
+           //      }
+           //  }
 
-            function currentLocation() {
-                if ($scope.Distance > 0 || $scope.Steps > 0 || $scope.Calories > 0 || $scope.Time_Duration > 0) {
-                    if ($scope.Distance <= $scope.distance || $scope.Steps <= $scope.steps || $scope.Calories <= $scope.calories || $scope.Time_Duration <= $scope.duration) {
-                        $scope.finishPedometer();
-                    } else {
-                        watchPostion();
-                    }
-                } else {
-                    watchPostion();
-                }
-            }
+           //  function currentLocation() {
+           //      if ($scope.Distance > 0 || $scope.Steps > 0 || $scope.Calories > 0 || $scope.Time_Duration > 0) {
+           //          if ($scope.Distance <= $scope.distance || $scope.Steps <= $scope.steps || $scope.Calories <= $scope.calories || $scope.Time_Duration <= $scope.duration) {
+           //              $scope.finishPedometer();
+           //          }  
+           //      }
+           //  }
 
-            function getPostion() {
-                $scope.interval = $interval(function() {
-                    if (!$scope.isPaused) {
-                        currentLocation();
-                    }
-                }, 2000);
-            }
-            $scope.startPedometer = function() {
-                $scope.hideStart = true;
-                $scope.showPause = true;
-                $scope.startPedo = true;
-                $scope.isPaused = false;
-                $scope.getStartTime = new Date();
-                $interval.cancel($scope.interval);
-                getPostion();
-            }
-            $scope.startAgainPedo = function() {
-                $interval.cancel($scope.interval);
-                $scope.isPaused = false;
-                $scope.getPosition=[];
-                $scope.exception=[];
-                getPostion();
-               
+           //  function getPostion() {
+           //      $scope.interval = $interval(function() {
+           //          if (!$scope.isPaused) {
+           //              watchPostion();
+           //          }
+           //      }, 3000);
+           //  }
+           
+           //  $scope.startPedometer = function() {
+           //      $scope.hideStart = true;
+           //      $scope.showPause = true;
+           //      $scope.startPedo = true;
+           //      $scope.isPaused = false;
+           //      $scope.getStartTime = new Date();
+           //      $interval.cancel($scope.interval);
+           //      getPostion();
+           //  }
+           //  $scope.startAgainPedo = function() {
+           //      $interval.cancel($scope.interval);
+           //      $scope.isPaused = false;
+           //      $scope.getPosition=[];
+           //      $scope.exception=[];
+           //      getPostion();
+           //      $scope.notWalking = false;
 
-                $scope.notWalking = false;
+           //  }
+           //  $scope.closePopPedo = function() {
+           //      $scope.steps = 0;
+           //      $scope.calories = 0;
+           //      $scope.duration = 0;
+           //      $scope.distance = 0;
+           //      $scope.getPosition = [];
+           //      $interval.cancel($scope.interval);
+           //      $scope.hideStart = false;
+           //      $scope.notWalking = false;
+           //      $scope.showData = false;
+           //      $scope.showResume = false;
+           //      $scope.showPause = false;
+           //  }
+           //  $scope.pausePedometer = function() {
+           //      $scope.showPause = false;
+           //      $scope.showResume = true;
+           //      $scope.startPedo = false;
+           //      $scope.isPaused = true;
 
-            }
-            $scope.closePopPedo = function() {
-                $scope.steps = 0;
-                $scope.calories = 0;
-                $scope.duration = 0;
-                $scope.distance = 0;
-                $scope.getPosition = [];
-                $interval.cancel($scope.interval);
-                $scope.hideStart = false;
-                $scope.notWalking = false;
-                $scope.showData = false;
-                $scope.showResume = false;
-                $scope.showPause = false;
-            }
-            $scope.pausePedometer = function() {
-                $scope.showPause = false;
-                $scope.showResume = true;
-                $scope.startPedo = false;
-                $scope.isPaused = true;
+           //  }
+           //  $scope.resumePedometer = function() {
+           //      $scope.showPause = true;
+           //      $scope.showResume = false;
+           //      $scope.startPedo = true;
+           //      $scope.isPaused = false;
+           //      $interval.cancel($scope.interval);
+           //      getPostion();
+           //  }
+           //  $scope.finishPedometer = function() {
+           //      $scope.hideResult = true;
+           //      $scope.hideStart = true;
+           //      $scope.startPedo = false;
+           //      $scope.showResume = false;
+           //      $scope.showData = true;
+           //      $interval.cancel($scope.interval);
+           //      $scope.isPaused = false;
+           //      $scope.notWalking = false;
+           //      $scope.showData = true;
+           //      $scope.dateObj = new Date();
+           //      var month = $scope.monthNames[$scope.dateObj.getMonth()]; //months from 1-12
+           //      var getMonth = $scope.dateObj.getMonth() + 1;
+           //      var printMonth = ('0' + getMonth).slice(-2);
+           //      var day = ('0' + $scope.dateObj.getDate()).slice(-2);
+           //      var year = $scope.dateObj.getFullYear();
+           //      $scope.createdSendDate = day + "/" + printMonth + "/" + year;
+           //      $scope.createdDate = day + "th" + " " + month + " " + year;
+           //      $scope.startedTime = $scope.getStartTime.getHours() + ":" + $scope.getStartTime.getMinutes();
+           //      $scope.endedTime = $scope.dateObj.getHours() + ":" + $scope.dateObj.getMinutes();
+           //  }
+           //  $scope.startNew = function(){
+           //     var time = 0;
+           //     $scope.hideResult = false;
+           //     $scope.hideStart = false;
 
-            }
-            $scope.resumePedometer = function() {
-                $scope.showPause = true;
-                $scope.showResume = false;
-                $scope.startPedo = true;
-                $scope.isPaused = false;
-                $interval.cancel($scope.interval);
-                getPostion();
-            }
-            $scope.finishPedometer = function() {
-                $scope.hideResult = true;
-                $scope.hideStart = true;
-                $scope.startPedo = false;
-                $scope.showResume = false;
-                $scope.showData = true;
-                $interval.cancel($scope.interval);
-                $scope.isPaused = false;
-                $scope.notWalking = false;
-                $scope.showData = true;
-                $scope.dateObj = new Date();
-                var month = $scope.monthNames[$scope.dateObj.getMonth()]; //months from 1-12
-                var getMonth = $scope.dateObj.getMonth() + 1;
-                var printMonth = ('0' + getMonth).slice(-2);
-                var day = ('0' + $scope.dateObj.getDate()).slice(-2);
-                var year = $scope.dateObj.getFullYear();
-                $scope.createdSendDate = day + "/" + printMonth + "/" + year;
-                $scope.createdDate = day + "th" + " " + month + " " + year;
-                $scope.startedTime = $scope.getStartTime.getHours() + ":" + $scope.getStartTime.getMinutes();
-                $scope.endedTime = $scope.dateObj.getHours() + ":" + $scope.dateObj.getMinutes();
-            }
-            $scope.startNew = function(){
-               var time = 0;
-               $scope.hideResult = false;
-               $scope.hideStart = false;
+           //       $scope.startPedo = true;
+           //      $scope.showResume = false;
+           //      $scope.showData = false;
 
-                 $scope.startPedo = true;
-                $scope.showResume = false;
-                $scope.showData = false;
+           //      $scope.Distance = { num: 0 };
+           //      $scope.Steps = { num: 0 };
+           //      $scope.Calories = { num: 0 };
+           //      $scope.Time_Duration = { num: 0 };
+           //      $scope.mapView = true;
+           //      $scope.steps = 0;
+           //      $scope.calories = 0;
+           //      $scope.duration = 0;
+           //      $scope.distance = 0;
+           //      $scope.getPosition = [];
+           //      $scope.isPaused = false;
+           //      $scope.notWalking = false;
+           //      $scope.showData = false;
+           //      $scope.totalDistance = [];
+           //      $scope.waypoints = [];
+           //      $scope.getpoint = 0;
+           //  }
+           //  $scope.pedoReports = function() {
+           //      $scope.wayPoint = [];
+           //      var origin = JSON.parse(JSON.stringify($scope.getPosition[0]));
+           //      var destination = JSON.parse(JSON.stringify($scope.getPosition[$scope.getPosition.length - 1]));
+           //      angular.forEach($scope.getPosition, function(data) {
+           //          var pos = JSON.parse(JSON.stringify(data));
+           //          var getDal = {
+           //              "lat": pos.lat,
+           //              "lng": pos.lng
+           //          };
+           //          $scope.wayPoint.push(getDal);
+           //      });
 
-                $scope.Distance = { num: 0 };
-                $scope.Steps = { num: 0 };
-                $scope.Calories = { num: 0 };
-                $scope.Time_Duration = { num: 0 };
-                $scope.mapView = true;
-                $scope.steps = 0;
-                $scope.calories = 0;
-                $scope.duration = 0;
-                $scope.distance = 0;
-                $scope.getPosition = [];
-                $scope.isPaused = false;
-                $scope.notWalking = false;
-                $scope.showData = false;
-                $scope.totalDistance = [];
-                $scope.waypoints = [];
-                $scope.getpoint = 0;
-            }
-            $scope.pedoReports = function() {
-                $scope.wayPoint = [];
-                var origin = JSON.parse(JSON.stringify($scope.getPosition[0]));
-                var destination = JSON.parse(JSON.stringify($scope.getPosition[$scope.getPosition.length - 1]));
-                angular.forEach($scope.getPosition, function(data) {
-                    var pos = JSON.parse(JSON.stringify(data));
-                    var getDal = {
-                        "lat": pos.lat,
-                        "lng": pos.lng
-                    };
-                    $scope.wayPoint.push(getDal);
-                });
-
-                var getAll = {
-                    "originLatitudeLongitude": {
-                        "lat": origin.lat,
-                        "lng": origin.lng
-                    },
-                    "destinationLatitudeLongitude": {
-                        "lat": destination.lat,
-                        "lng": destination.lng
-                    },
-                    "waypoints": $scope.wayPoint,
-                    "distance": $scope.distance,
-                    "duration": $scope.duration,
-                    "steps": $scope.steps,
-                    "calories": $scope.calories,
-                    "startTime": $scope.startedTime,
-                    "endTime": $scope.endedTime,
-                    "createdDate": $scope.createdSendDate
-                };
-                PageService.passPedoRecord(getAll, function(response) {
-                    if (response.status) {
-                        $location.path('/pedo_report');
-                    }
-                });
-            }
+           //      var getAll = {
+           //          "originLatitudeLongitude": {
+           //              "lat": origin.lat,
+           //              "lng": origin.lng
+           //          },
+           //          "destinationLatitudeLongitude": {
+           //              "lat": destination.lat,
+           //              "lng": destination.lng
+           //          },
+           //          "waypoints": $scope.wayPoint,
+           //          "distance": $scope.distance,
+           //          "duration": $scope.duration,
+           //          "steps": $scope.steps,
+           //          "calories": $scope.calories,
+           //          "startTime": $scope.startedTime,
+           //          "endTime": $scope.endedTime,
+           //          "createdDate": $scope.createdSendDate
+           //      };
+           //      PageService.passPedoRecord(getAll, function(response) {
+           //          if (response.status) {
+           //              $location.path('/pedo_report');
+           //          }
+           //      });
+           //  }
             $scope.storeWeight = function(weight) {
                 $scope.$storage.userWeight = weight;
             }
@@ -640,7 +752,7 @@ pageModule.controller('pageController', ['$route', '$scope', '$document', '$sce'
     $rootScope.viewAlarms = 0;
     $scope.viewA1C = true;
     $scope.viewEAG = false;
-
+    var arrayDailyData = [];
     if ($location.path() === '/menu') {
         $scope.pageName = 'menuPage';
         $scope.isBack = false;
@@ -681,7 +793,7 @@ pageModule.controller('pageController', ['$route', '$scope', '$document', '$sce'
 
     $scope.assignHeight = function() {
         $scope.heightValue = [];
-        var initial = 150;
+        var initial = 120;
         var end = 500;
         for (var i = initial; i <= end; i++) {
             $scope.heightValue.push(i);
@@ -691,8 +803,8 @@ pageModule.controller('pageController', ['$route', '$scope', '$document', '$sce'
     }
     $scope.assignWeight = function() {
         $scope.weightValue = [];
-        var initial = 30;
-        var end = 150;
+        var initial = 20;
+        var end = 120;
         for (var i = initial; i <= end; i++) {
             $scope.weightValue.push(i);
         }
@@ -809,40 +921,103 @@ pageModule.controller('pageController', ['$route', '$scope', '$document', '$sce'
         $scope.getScopeDate = ('0' + $scope.activeDate).slice(-2);
         $scope.createdDate = $scope.getScopeDate + '/' + $scope.getScopeMonth + '/' + currentYr;
         var dailyData = { beforeBrkfast: before_breakfast, nintyminAfterBrkfast: after_breakfast, preLunch: pre_lunch, postLunch: post_lunch, preDinner: pre_dinner, postDinner: post_dinner, bedTime: bed_time, atfourAM: at_4_am, createdDate: $scope.createdDate };
-        PageService.saveDailyRecord(dailyData, function(response) {
-            $scope.dailyBtn = "loading...";
-            if (response.status) {
+        // PageService.saveDailyRecord(dailyData, function(response) {
+        //     $scope.dailyBtn = "loading...";
+        //     if (response.status) {
+        //         $scope.dailyBtn = "Submitted Successfully";
+        //     } else {
+        //         $scope.dailyBtn = "Failed Try Again";
+        //     }
+        //     $timeout(function() {
+        //         $scope.dailyBtn = "Submit";
+        //     }, 1000);
+        // });
+        if(angular.isUndefined($localStorage.dataRecord)){
+                arrayDailyData.push(dailyData);
+                 $localStorage.dataRecord = {
+                    dailyRecord : arrayDailyData
+                };
                 $scope.dailyBtn = "Submitted Successfully";
-            } else {
-                $scope.dailyBtn = "Failed Try Again";
-            }
-            $timeout(function() {
+        }else{
+            angular.forEach($localStorage.dataRecord.dailyRecord,function(data){
+                if(data.createdDate == $scope.createdDate){
+                   var getIndex = $localStorage.dataRecord.dailyRecord.indexOf(data);
+                   $localStorage.dataRecord.dailyRecord[getIndex].beforeBrkfast = before_breakfast;
+                   $localStorage.dataRecord.dailyRecord[getIndex].nintyminAfterBrkfast= after_breakfast; 
+                   $localStorage.dataRecord.dailyRecord[getIndex].preLunch= pre_lunch;
+                   $localStorage.dataRecord.dailyRecord[getIndex].postLunch= post_lunch; 
+                   $localStorage.dataRecord.dailyRecord[getIndex].preDinner= pre_dinner; 
+                   $localStorage.dataRecord.dailyRecord[getIndex].postDinner= post_dinner; 
+                   $localStorage.dataRecord.dailyRecord[getIndex].bedTime= bed_time;
+                   $localStorage.dataRecord.dailyRecord[getIndex].atfourAM= at_4_am; 
+                   $localStorage.dataRecord.dailyRecord[getIndex].createdDate= $scope.createdDate;
+                }else{
+                    arrayDailyData.push(dailyData);
+                     $localStorage.dataRecord = {
+                        dailyRecord : arrayDailyData
+                    };
+                }
+            });
+            $scope.dailyBtn = "Submitted Successfully";
+        } 
+        $timeout(function() {
                 $scope.dailyBtn = "Submit";
             }, 1000);
-        });
     }
+    //check obj names are having value or not
+    // function checkProperties(obj) {
+    //     for (var key in obj) {
+    //         if (obj[key] !== null && obj[key] != "")
+    //             return false;
+    //     }
+    //     return true;
+    // }
     $scope.prevRecords = function(date) {
-        PageService.retrieveRecord(date, function(response) {
-            if (response.data == null) {
-                $scope.at_4_am = '';
-                $scope.bed_time = '';
-                $scope.before_breakfast = '';
-                $scope.after_breakfast = '';
-                $scope.post_dinner = '';
-                $scope.post_lunch = '';
-                $scope.pre_dinner = '';
-                $scope.pre_lunch = '';
-            } else {
-                $scope.at_4_am = response.data.atfourAM;
-                $scope.bed_time = response.data.bedTime;
-                $scope.before_breakfast = response.data.beforeBrkfast;
-                $scope.after_breakfast = response.data.nintyminAfterBrkfast;
-                $scope.post_dinner = response.data.postDinner;
-                $scope.post_lunch = response.data.postLunch;
-                $scope.pre_dinner = response.data.preDinner;
-                $scope.pre_lunch = response.data.preLunch;
-            }
-        });
+        // PageService.retrieveRecord(date, function(response) {
+        //     if (response.data == null) {
+        //         $scope.at_4_am = '';
+        //         $scope.bed_time = '';
+        //         $scope.before_breakfast = '';
+        //         $scope.after_breakfast = '';
+        //         $scope.post_dinner = '';
+        //         $scope.post_lunch = '';
+        //         $scope.pre_dinner = '';
+        //         $scope.pre_lunch = '';
+        //     } else {
+        //         $scope.at_4_am = response.data.atfourAM;
+        //         $scope.bed_time = response.data.bedTime;
+        //         $scope.before_breakfast = response.data.beforeBrkfast;
+        //         $scope.after_breakfast = response.data.nintyminAfterBrkfast;
+        //         $scope.post_dinner = response.data.postDinner;
+        //         $scope.post_lunch = response.data.postLunch;
+        //         $scope.pre_dinner = response.data.preDinner;
+        //         $scope.pre_lunch = response.data.preLunch;
+        //     }
+        // });
+                    $scope.at_4_am = '';
+                    $scope.bed_time = '';
+                    $scope.before_breakfast = '';
+                    $scope.after_breakfast = '';
+                    $scope.post_dinner = '';
+                    $scope.post_lunch = '';
+                    $scope.pre_dinner = '';
+                    $scope.pre_lunch = '';
+        if(angular.isDefined($localStorage.dataRecord)){
+               
+          angular.forEach($localStorage.dataRecord.dailyRecord,function(data){
+                if(data.createdDate == date){
+                    $scope.at_4_am = data.atfourAM;
+                    $scope.bed_time = data.bedTime;
+                    $scope.before_breakfast = data.beforeBrkfast;
+                    $scope.after_breakfast = data.nintyminAfterBrkfast;
+                    $scope.post_dinner = data.postDinner;
+                    $scope.post_lunch = data.postLunch;
+                    $scope.pre_dinner = data.preDinner;
+                    $scope.pre_lunch = data.preLunch;
+                }
+            });
+        }
+
     }
     $scope.getA1c = function(eag) {
         if (eag === '') {
@@ -884,7 +1059,295 @@ pageModule.controller('pageController', ['$route', '$scope', '$document', '$sce'
             $scope.$broadcast('htmlRendered');
         }, 0);
     };
+    /*-------------------Pedometer Page ----------------------------------*/
+    // $scope.pedoInit = function(){
+    //      var time = 0;
+    //         $scope.Distance = { num: 0 };
+    //         $scope.Steps = { num: 0 };
+    //         $scope.Calories = { num: 0 };
+    //         $scope.Time_Duration = { num: 0 };
+    //         $scope.mapView = true;
+    //         $scope.steps = 0;
+    //         var watchID = 0;
+    //         $scope.calories = 0;
+    //         $scope.duration = 0;
+    //         $scope.distance = 0;
+    //         $scope.getPosition = [];
+    //         $scope.isPaused = false;
+    //         $scope.notWalking = false;
+    //         $scope.showData = false;
+    //         $scope.exception = [];
+    //         $scope.totalDistance = [];
+    //         $scope.waypoints = [];
+    //         $scope.getpoint = 0;
+    //         var options = {enableHighAccuracy:true,maximumAge:Infinity, timeout:60000 };
+    //         function getPedoDuration(initial,update) {
+    //             var startTime = (new Date(initial).getHours() * 60) + new Date(initial).getMinutes();
+    //             var updateTime = (new Date(update).getHours() * 60) + new Date(update).getMinutes();
+    //             return updateTime - startTime;
+    //         }
 
+    //         function distance(lat1, lon1, lat2, lon2, unit) {
+    //             var radlat1 = Math.PI * lat1 / 180
+    //             var radlat2 = Math.PI * lat2 / 180
+    //             var radlon1 = Math.PI * lon1 / 180
+    //             var radlon2 = Math.PI * lon2 / 180
+    //             var theta = lon1 - lon2
+    //             var radtheta = Math.PI * theta / 180
+    //             var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    //             dist = Math.acos(dist)
+    //             dist = dist * 180 / Math.PI;
+    //             dist = dist * 60 * 1.1515;
+    //             if (unit == "K") { dist = dist * 1.609344; } else if (unit == "N") { dist = dist * 0.8684; } else if (unit == "M") { dist = dist; }
+    //             $scope.totalDistance.push(dist);
+    //             return $scope.totalDistance.reduce(getSum);
+    //         }
+
+    //         function getSum(total, num) {
+    //             return total + num;
+    //         }
+
+    //         function calsPerDay(steps) {
+    //             //var weight = $scope.$storage.userWeight;
+    //             result = parseInt(steps) * 0.063;
+    //             return result;
+    //         }
+    //         // function find_duplicate_in_array(arra1) {
+    //         //   var i,
+    //         //   len=arra1.length,
+    //         //   result = [],
+    //         //   obj = {}; 
+    //         //   for (i=0; i<len; i++){
+    //         //     obj[arra1[i]]=0;
+    //         //   }
+    //         //   for (i in obj) {
+    //         //   result.push(i);
+    //         //   }
+    //         //   return result;
+    //         // }
+    //         // function compareObj(current, last) {
+    //         //     var getBoolean = false;
+    //         //     if (current.lat === last.lat || current.lng === last.lng) {
+    //         //         getBoolean = false;
+    //         //     } else {
+    //         //         getBoolean = true;
+    //         //     }
+    //         //     return getBoolean;
+    //         // }
+    //         // currentLocation();
+
+    //        function onSuccess(position) {
+    //         console.log(position);
+    //                     var currentOrigin = {
+    //                         lat: parseFloat(position.coords.latitude),
+    //                         lng: parseFloat(position.coords.longitude),
+    //                         timestamp:position.timestamp
+    //                     };
+                        
+    //                         $scope.getPosition.push(currentOrigin);
+    //                         var srcLocation = new google.maps.LatLng($scope.getPosition[0].lat, $scope.getPosition[0].lng);
+    //                         var dstLocation = new google.maps.LatLng($scope.getPosition[$scope.getPosition.length - 1].lat, $scope.getPosition[$scope.getPosition.length - 1].lng);
+    //                         //var getDistance = google.maps.geometry.spherical.computeDistanceBetween(srcLocation, dstLocation);
+    //                         var getDistance = distance($scope.getPosition[0].lat,$scope.getPosition[0].lng,$scope.getPosition[$scope.getPosition.length - 1].lat, $scope.getPosition[$scope.getPosition.length - 1].lng,"K");
+    //                         var cm_distance = getDistance * 100000;
+    //                         //1 cm equal to 0.01320 steps;
+    //                         var stepsTotal = cm_distance * 0.01320;
+                            
+    //                          $scope.$apply(function() {
+    //                             $scope.steps = stepsTotal;
+    //                             $scope.duration = getPedoDuration($scope.getPosition[0].timestamp,$scope.getPosition[$scope.getPosition.length - 1].timestamp);
+    //                             $scope.distance = getDistance;
+    //                             $scope.calories = calsPerDay($scope.steps);
+    //                             currentLocation();
+    //                         });
+    //                         // if (cm_distance > 68) {
+    //                         //     $scope.getPosition.push(currentOrigin);
+    //                         //     $scope.$apply(function() {
+    //                         //         angular.forEach($scope.getPosition, function(data) {
+    //                         //             $scope.waypoints.push([data.lat, data.lng]);
+    //                         //         });
+    //                         //         var origin = new google.maps.LatLng($scope.getPosition[0].lat, $scope.getPosition[0].lng);
+    //                         //         var destination = new google.maps.LatLng($scope.getPosition[$scope.getPosition.length - 1].lat, $scope.getPosition[$scope.getPosition.length - 1].lng);
+    //                         //         var getAccDistance = google.maps.geometry.spherical.computeDistanceBetween(origin, destination);
+    //                         //         $scope.steps = $scope.getPosition.length - 1;
+    //                         //         $scope.duration = getPedoDuration();
+    //                         //         $scope.distance = getAccDistance/1000;
+    //                         //         $scope.calories = calsPerDay();
+    //                         //     });
+    //                         // } else {
+    //                         //     //var log = 'Not WALKING';
+    //                         //     console.log("Not WALKING");
+    //                         //     // $scope.exception.push(log);
+    //                         //     // if($scope.exception.length > 5){
+    //                         //     //     $scope.$apply(function () {
+    //                         //     //         $scope.pausePedometer();
+    //                         //     //         $scope.notWalking = true;
+    //                         //     //     }); 
+    //                         //     // }
+                                
+    //                         // }
+    //                 }
+    //       function onError(err){
+    //                     if (err.code == 1) {
+    //                         alert("User denied geolocation.");
+    //                     } else if (err.code == 2) {
+    //                         alert("Position unavailable.");
+    //                     } else if (err.code == 3) {
+    //                         alert("Timeout expired.");
+    //                     } else {
+    //                         alert("ERROR:" + err.message);
+    //                     }
+    //       }
+
+    //         function currentLocation() {
+    //             if ($scope.Distance > 0 || $scope.Steps > 0 || $scope.Calories > 0 || $scope.Time_Duration > 0) {
+    //                 if ($scope.Distance <= $scope.distance || $scope.Steps <= $scope.steps || $scope.Calories <= $scope.calories || $scope.Time_Duration <= $scope.duration) {
+    //                     $scope.finishPedometer();
+    //                 }
+    //             } 
+    //         }
+
+    //         // function getPostion() {
+    //         //     $scope.interval = $interval(function() {
+    //         //         if (!$scope.isPaused) {
+    //         //             currentLocation();
+    //         //         }
+    //         //     }, 1500);
+    //         // }
+               
+                
+    //         function getPostion(){
+    //             watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+    //         }
+    //         $scope.startPedometer = function() {
+    //             $scope.hideStart = true;
+    //             $scope.showPause = true;
+    //             $scope.startPedo = true;
+    //             $scope.isPaused = false;
+    //             $scope.getStartTime = new Date();
+    //             getPostion();
+    //         }
+    //         $scope.startAgainPedo = function() {
+    //             $scope.isPaused = false;
+    //             $scope.getPosition=[];
+    //             $scope.exception=[];
+    //             getPostion();
+    //             $scope.notWalking = false;
+
+    //         }
+    //         $scope.closePopPedo = function() {
+    //             $scope.steps = 0;
+    //             $scope.calories = 0;
+    //             $scope.duration = 0;
+    //             $scope.distance = 0;
+    //             $scope.getPosition = [];
+    //             navigator.geolocation.clearWatch(watchID);
+    //             $scope.hideStart = false;
+    //             $scope.notWalking = false;
+    //             $scope.showData = false;
+    //             $scope.showResume = false;
+    //             $scope.showPause = false;
+    //         }
+    //         $scope.pausePedometer = function() {
+    //             $scope.showPause = false;
+    //             $scope.showResume = true;
+    //             $scope.startPedo = false;
+    //             $scope.isPaused = true;
+    //             navigator.geolocation.clearWatch(watchID);
+
+    //         }
+    //         $scope.resumePedometer = function() {
+    //             $scope.showPause = true;
+    //             $scope.showResume = false;
+    //             $scope.startPedo = true;
+    //             $scope.isPaused = false;
+    //             navigator.geolocation.clearWatch(watchID);
+    //             getPostion();
+    //         }
+    //         $scope.finishPedometer = function() {
+    //             $scope.hideResult = true;
+    //             $scope.hideStart = true;
+    //             $scope.startPedo = false;
+    //             $scope.showResume = false;
+    //             $scope.showData = true;
+    //             navigator.geolocation.clearWatch(watchID);
+    //             $scope.isPaused = false;
+    //             $scope.notWalking = false;
+    //             $scope.showData = true;
+    //             $scope.dateObj = new Date();
+    //             var month = $scope.monthNames[$scope.dateObj.getMonth()]; //months from 1-12
+    //             var getMonth = $scope.dateObj.getMonth() + 1;
+    //             var printMonth = ('0' + getMonth).slice(-2);
+    //             var day = ('0' + $scope.dateObj.getDate()).slice(-2);
+    //             var year = $scope.dateObj.getFullYear();
+    //             $scope.createdSendDate = day + "/" + printMonth + "/" + year;
+    //             $scope.createdDate = day + "th" + " " + month + " " + year;
+    //             $scope.startedTime = $scope.getStartTime.getHours() + ":" + $scope.getStartTime.getMinutes();
+    //             $scope.endedTime = $scope.dateObj.getHours() + ":" + $scope.dateObj.getMinutes();
+    //         }
+    //         $scope.startNew = function(){
+    //            var time = 0;
+    //            $scope.hideResult = false;
+    //            $scope.hideStart = false;
+
+    //             $scope.startPedo = true;
+    //             $scope.showResume = false;
+    //             $scope.showData = false;
+    //             $scope.mapView = true;
+    //             $scope.steps = 0;
+    //             $scope.calories = 0;
+    //             $scope.duration = 0;
+    //             $scope.distance = 0;
+    //             $scope.getPosition = [];
+    //             $scope.isPaused = false;
+    //             $scope.notWalking = false;
+    //             $scope.showData = false;
+    //             $scope.totalDistance = [];
+    //             $scope.waypoints = [];
+    //             $scope.getpoint = 0;
+    //             $scope.startPedometer();
+    //         }
+    //         $scope.pedoReports = function() {
+    //             $scope.wayPoint = [];
+    //             var origin = JSON.parse(JSON.stringify($scope.getPosition[0]));
+    //             var destination = JSON.parse(JSON.stringify($scope.getPosition[$scope.getPosition.length - 1]));
+    //             angular.forEach($scope.getPosition, function(data) {
+    //                 var pos = JSON.parse(JSON.stringify(data));
+    //                 var getDal = {
+    //                     "lat": pos.lat,
+    //                     "lng": pos.lng
+    //                 };
+    //                 $scope.wayPoint.push(getDal);
+    //             });
+
+    //             var getAll = {
+    //                 "originLatitudeLongitude": {
+    //                     "lat": origin.lat,
+    //                     "lng": origin.lng
+    //                 },
+    //                 "destinationLatitudeLongitude": {
+    //                     "lat": destination.lat,
+    //                     "lng": destination.lng
+    //                 },
+    //                 "waypoints": $scope.wayPoint,
+    //                 "distance": $scope.distance,
+    //                 "duration": $scope.duration,
+    //                 "steps": $scope.steps,
+    //                 "calories": $scope.calories,
+    //                 "startTime": $scope.startedTime,
+    //                 "endTime": $scope.endedTime,
+    //                 "createdDate": $scope.createdSendDate
+    //             };
+    //             PageService.passPedoRecord(getAll, function(response) {
+    //                 if (response.status) {
+    //                     $location.path('/pedo_report');
+    //                 }
+    //             });
+    //         }
+    //         $scope.storeWeight = function(weight) {
+    //             $scope.$storage.userWeight = weight;
+    //         }
+    // };
     /*---------------------PedoMeter Report Page------------------------*/
 
     $scope.getPedoReports = function(date) {
@@ -1193,6 +1656,7 @@ pageModule.controller('pageController', ['$route', '$scope', '$document', '$sce'
         }
         $('.goalValues input').not(this).prop('checked', false);
         $('.selectGoalTyp span').html($(this).val());
+        $('.pagePedometer').removeClass('active');
     });
 
     var start = new Date().getTime();
@@ -1284,12 +1748,7 @@ novomixApp.run(['$rootScope', '$location', '$localStorage', function($rootScope,
     $rootScope.$storage = $localStorage;
     if ($rootScope.$storage.isLoggedIn) {
         $rootScope.isLoggedIn = true;
-        if ($rootScope.$storage.user[0].verified) {
-            $location.path('/menu');
-        } else {
-            $location.path('/login');
-        }
-
+        $location.path('/menu');
     } else {
         $rootScope.isLoggedIn = false;
         if ($rootScope.$storage.lang) {
@@ -1379,9 +1838,9 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
         //setTimeout(function() {
-            navigator.splashscreen.hide();
+            //navigator.splashscreen.hide();
         //}, 1000);
-
+      
         // Permission Check
         var permissions = cordova.plugins.permissions;
 
@@ -1416,6 +1875,7 @@ var app = {
         cordova.plugins.notification.local.on("click", function(notification) {
             console.log("triggered: " + notification.id);
         });
+
         /*-----------------------Device BackButton -------------------*/
 
         document.addEventListener("backbutton", function(e) {

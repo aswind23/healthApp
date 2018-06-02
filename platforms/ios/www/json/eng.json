@@ -714,24 +714,24 @@
         "title": "Disclaimer",
         "description": "Content shown is adapted from information available on internet / public domain. Novo Nordisk holds no responsibility for accurateness of data."
     },
-    "login":{
-     	"title" : "Login",
-     	 "placeholder": "Enter Mobile Number",
-     	 "loading" :"Loading..",
-     	 "failed" : "Failed. Try Again.",
-     	 "submit" :"Submit",
-     	 "submitted" : "Submitted",
-     	 "info" : "Enter your mobile number will send you",
-     	 "otp_label" : "OTP",
-     	 "alert" : "Please Enter the Mobile Number",
-     	 "otp" : {
-	     	"title" : "Please wait while we verify your number",
-	     	"placeholder": "Enter OTP",
-	     	"submit" :"Submit",
-	     	"info" : "Didn’t get the code?",
-	     	"resend" : "RESEND",
-	     	"alert" : "Please Enter OTP"
-     	}
+     "login":{
+         "title" : "Login",
+          "placeholder": "Enter Password",
+          "loading" :"Loading..",
+          "failed" : "Failed. Try Again.",
+          "submit" :"Submit",
+          "submitted" : "Submitted",
+          "info" : "Enter your Password",
+          "otp_label" : "",
+          "alert" : "Please Enter the Correct Password",
+          "otp" : {
+             "title" : "Please wait while we verify password",
+             "placeholder": "Enter Password",
+             "submit" :"Submit",
+             "info" : "Didn’t get the Password?",
+             "resend" : "RESEND",
+             "alert" : "Please Enter Password"
+         }
     },
     "reminder":{
     	"title" : "reminder Alarm",

@@ -34,6 +34,22 @@ module.exports = [
     ]
   },
   {
+    "id": "cordova-plugin-device-motion.Acceleration",
+    "file": "plugins/cordova-plugin-device-motion/www/Acceleration.js",
+    "pluginId": "cordova-plugin-device-motion",
+    "clobbers": [
+      "Acceleration"
+    ]
+  },
+  {
+    "id": "cordova-plugin-device-motion.accelerometer",
+    "file": "plugins/cordova-plugin-device-motion/www/accelerometer.js",
+    "pluginId": "cordova-plugin-device-motion",
+    "clobbers": [
+      "navigator.accelerometer"
+    ]
+  },
+  {
     "id": "cordova-plugin-geolocation.Coordinates",
     "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
     "pluginId": "cordova-plugin-geolocation",
@@ -117,11 +133,19 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-splashscreen.SplashScreen",
-    "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-    "pluginId": "cordova-plugin-splashscreen",
+    "id": "cordova-plugin-pedometer.Pedometer",
+    "file": "plugins/cordova-plugin-pedometer/www/pedometer.js",
+    "pluginId": "cordova-plugin-pedometer",
     "clobbers": [
-      "navigator.splashscreen"
+      "pedometer"
+    ]
+  },
+  {
+    "id": "cordova-plugin-statusbar.statusbar",
+    "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+    "pluginId": "cordova-plugin-statusbar",
+    "clobbers": [
+      "window.StatusBar"
     ]
   }
 ];
@@ -133,12 +157,14 @@ module.exports.metadata =
   "cordova-plugin-background-mode": "0.7.2",
   "cordova-plugin-badge": "0.8.7",
   "cordova-plugin-compat": "1.2.0",
+  "cordova-plugin-device-motion": "2.0.1",
   "cordova-plugin-geolocation": "4.0.1",
   "cordova-plugin-globalization": "1.0.9",
   "cordova-plugin-inappbrowser": "2.0.2",
   "cordova-plugin-ios-disableshaketoedit": "1.0.0",
   "cordova-plugin-local-notification": "0.9.0-beta.2",
-  "cordova-plugin-splashscreen": "5.0.2",
+  "cordova-plugin-pedometer": "0.4.1",
+  "cordova-plugin-statusbar": "2.4.1",
   "cordova-plugin-whitelist": "1.3.3"
 };
 // BOTTOM OF METADATA

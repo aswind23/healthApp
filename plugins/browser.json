@@ -19,15 +19,6 @@
     "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
     },
-    "cordova-plugin-local-notification": {
-      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
-    },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
-    },
-    "cordova-plugin-splashscreen": {
-      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
-    },
     "cordova-plugin-globalization": {
       "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
     },
@@ -35,6 +26,21 @@
       "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
     },
     "cordova-plugin-ios-disableshaketoedit": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-device-motion": {
+      "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
+    },
+    "cordova-plugin-pedometer": {
       "PACKAGE_NAME": "com.novonordisk.IndiaMyryzodeg"
     }
   },

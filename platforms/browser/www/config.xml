@@ -19,6 +19,9 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="orientation" value="portrait" />
     <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
+    <preference name="StatusBarStyle" value="lightcontent" />
     <preference name="SplashScreen" value="/images/main-logo.png" />
     <preference name="SplashScreenDelay" value="0" />
     <preference name="SplashScreenBackgroundColor" value="#0d4084" />

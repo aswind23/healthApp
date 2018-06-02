@@ -23,20 +23,29 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <platform name="android">
-        <splash density="land-hdpi" src="res/drawable-land-hdpi/screen.png" />
-        <splash density="land-ldpi" src="res/drawable-land-ldpi/screen.png" />
-        <splash density="land-mdpi" src="res/drawable-land-mdpi/screen.png" />
-        <splash density="land-xhdpi" src="res/drawable-land-xhdpi/screen.png" />
-        <splash density="port-hdpi" src="res/drawable-port-hdpi/screen.png" />
-        <splash density="port-ldpi" src="res/drawable-port-ldpi/screen.png" />
-        <splash density="port-mdpi" src="res/drawable-port-mdpi/screen.png" />
-        <splash density="port-xhdpi" src="res/drawable-port-xhdpi/screen.png" />
         <icon density="ldpi" src="res/drawable-ldpi/icon.PNG" />
         <icon density="mdpi" src="res/drawable-mdpi/icon.PNG" />
         <icon density="hdpi" src="res/drawable-hdpi/icon.PNG" />
         <icon density="xhdpi" src="res/drawable-xhdpi/icon.PNG" />
         <icon density="xxhdpi" src="res/drawable-xxhdpi/icon.PNG" />
         <icon density="xxxhdpi" src="res/drawable-xxxhdpi/icon.PNG" />
+    </platform>
+    <platform name="ios">
+        <icon height="57" src="res/ios/icon.png" width="57" />
+        <icon height="114" src="res/ios/icon@2x.png" width="114" />
+        <icon height="40" src="res/ios/icon-40.png" width="40" />
+        <icon height="80" src="res/ios/icon-40@2x.png" width="80" />
+        <icon height="50" src="res/ios/icon-50.png" width="50" />
+        <icon height="100" src="res/ios/icon-50@2x.png" width="100" />
+        <icon height="60" src="res/ios/icon-60.png" width="60" />
+        <icon height="120" src="res/ios/icon-60@2x.png" width="120" />
+        <icon height="180" src="res/ios/icon-60@3x.png" width="180" />
+        <icon height="72" src="res/ios/icon-72.png" width="72" />
+        <icon height="144" src="res/ios/icon-72@2x.png" width="144" />
+        <icon height="76" src="res/ios/icon-76.png" width="76" />
+        <icon height="152" src="res/ios/icon-76@2x.png" width="152" />
+        <icon height="29" src="res/ios/icon-small.png" width="29" />
+        <icon height="58" src="res/ios/icon-small@2x.png" width="58" />
     </platform>
     <platform name="browser">
         <preference name="SplashScreen" value="/images/main-logo.png" />
@@ -66,18 +75,22 @@
     <preference name="android-minSdkVersion" value="16" />
     <preference name="orientation" value="portrait" />
     <preference name="AllowInlineMediaPlayback" value="true" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
+    <preference name="StatusBarStyle" value="lightcontent" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-device" spec="^2.0.1" />
     <plugin name="cordova-plugin-compat" spec="^1.2.0" />
     <plugin name="cordova-plugin-android-permissions" spec="^1.0.0" />
     <plugin name="cordova-plugin-background-mode" spec="^0.7.2" />
-    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
     <plugin name="cordova-plugin-local-notification" spec="^0.9.0-beta.2" />
-    <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-globalization" spec="^1.0.9" />
     <plugin name="cordova-plugin-inappbrowser" spec="^2.0.2" />
     <plugin name="cordova-plugin-ios-disableshaketoedit" spec="^1.0.0" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
+    <plugin name="cordova-plugin-device-motion" spec="^2.0.1" />
+    <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
+    <plugin name="cordova-plugin-pedometer" spec="https://github.com/leecrossley/cordova-plugin-pedometer.git" />
     <engine name="browser" spec="~5.0.3" />
-    <engine name="android" spec="~7.0.0" />
-    <engine name="ios" spec="~4.5.4" />
+    <engine name="ios" spec="4.5.4" />
 </widget>
